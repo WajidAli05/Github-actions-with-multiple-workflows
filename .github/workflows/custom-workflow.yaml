@@ -1,0 +1,18 @@
+name: Custom Workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      details:
+        description: 'Input needed for the custom task'
+        required: true
+
+jobs:
+  custom-job:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run custom script
+      run: echo "Running custom task with ${INPUT_DETAILS}"
+      env:
+        INPUT_DETAILS: ${{ github.event.inputs.details }}
