@@ -1,0 +1,13 @@
+name: Scheduled Maintenance Tasks
+
+on:
+  schedule:
+    - cron: '20 23 * * *' # Runs daily at 11:20 PM UTC
+
+jobs:
+  maintenance:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run cleanup script
+      run: sh ./scripts/cleanup.sh
