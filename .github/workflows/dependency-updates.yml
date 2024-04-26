@@ -1,0 +1,26 @@
+name: Dependency Updates
+
+on:
+  schedule:
+    - cron: '30 23 * * *' # Runs daily at 11:30 PM UTC
+
+jobs:
+  update-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14'
+    - name: Install dependencies
+      run: npm install
+    - name: Check for updates
+      run: npx npm-check-updates -u
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        commit-message: Update dependencies
+        title: '[Automated] Update dependencies'
+        body: 'Automated PR to update dependencies'
+        branch: update-dependencies
